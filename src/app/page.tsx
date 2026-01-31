@@ -39,7 +39,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
         <Suspense fallback={<Loading />}>
           {priceData ? (
-            <GoldTodayCard data={priceData} />
+            <GoldTodayCard data={priceData} historyData={historyData} />
           ) : (
             <div className="py-10 text-center text-gray-500">
               Unable to load today's gold rates. Please try again later.

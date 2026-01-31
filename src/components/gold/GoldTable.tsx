@@ -21,7 +21,7 @@ export function GoldTable({ data }: GoldTableProps) {
                     <thead className="sticky top-0 bg-white text-left shadow-sm dark:bg-gray-900">
                         <tr>
                             <th className="px-4 py-3 font-medium text-gray-500">Date</th>
-                            <th className="px-4 py-3 text-right font-medium text-gray-500">Price (22K)</th>
+                            <th className="px-4 py-3 text-right font-medium text-gray-500">Price (22K - 8g)</th>
                             <th className="px-4 py-3 text-right font-medium text-gray-500">Trend</th>
                         </tr>
                     </thead>

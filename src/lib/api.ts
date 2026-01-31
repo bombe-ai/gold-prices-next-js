@@ -1,7 +1,7 @@
-import { GoldHistoryItem, GoldPriceData, GoldPriceWithChange } from './types';
+import { GoldHistoryItem, GoldPriceData, GoldPriceWithChange, MarketData } from './types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
+const API_KEY = process.env.SUPABASE_API_KEY;
 
 if (!BASE_URL || !API_KEY) {
     console.warn('Missing Supabase Environment Variables');
@@ -70,15 +70,34 @@ export async function fetchTodayGoldPrice(city: string = 'kerala'): Promise<Gold
         // Direction "-" seems ambiguous, so we can self-calculate direction to be safe,
         // or map "-" to something. But standard logic `today >= yesterday` is better for UI color.
 
-        const getDirection = (today: number, yesterday: number) => {
-            if (today > yesterday) return 'up';
-            if (today < yesterday) return 'down';
+        // Parse API Direction
+        // User specified: "+" means hike (up), "-" means drop (down).
+        const parseDirection = (dir: any): 'up' | 'down' | 'flat' => {
+            const d = String(dir).trim();
+            if (d === '+') return 'up';
+            if (d === '-') return 'down';
             return 'flat';
         };
 
+        const dir24k = parseDirection(row['24K_1g_direction']);
+        const dir22k = parseDirection(row['22K_1g_direction']);
+        const dir18k = parseDirection(row['18K_1g_direction']);
+
+        // Helper to ensure change follows direction signs for consistency
+        // If direction is down, change should arguably be negative, or we handle sign in UI.
+        // The UI logic usually expects absolute change and adds +/- based on direction, 
+        // OR expects signed change. 
+        // Let's provide absolute change here and letting direction drive the UI indicators 
+        // is the safest approach given the `GoldTodayCard` logic: `{data.direction22k === 'up' ? '+' : ''}{change8g...}`
+        // Use the API's change value if present, else calculate.
+
+        const ch24k = parse(row['24K_1g_change']) || Math.abs(price24k - prev24k);
+        const ch22k = parse(row['22K_1g_change']) || Math.abs(price22k - prev22k);
+        const ch18k = parse(row['18K_1g_change']) || Math.abs(price18k - prev18k);
+
         return {
             currency: row.currency || '₹',
-            city: city, // or row.city || city
+            city: city,
             date: row.date,
             price24k,
             price22k,
@@ -86,12 +105,12 @@ export async function fetchTodayGoldPrice(city: string = 'kerala'): Promise<Gold
             previousPrice24k: prev24k,
             previousPrice22k: prev22k,
             previousPrice18k: prev18k,
-            change24k: parse(row['24K_1g_change']) || (price24k - prev24k),
-            direction24k: getDirection(price24k, prev24k),
-            change22k: parse(row['22K_1g_change']) || (price22k - prev22k),
-            direction22k: getDirection(price22k, prev22k),
-            change18k: parse(row['18K_1g_change']) || (price18k - prev18k),
-            direction18k: getDirection(price18k, prev18k),
+            change24k: ch24k,
+            direction24k: dir24k,
+            change22k: ch22k,
+            direction22k: dir22k,
+            change18k: ch18k,
+            direction18k: dir18k,
         };
 
     } catch (error) {
@@ -127,7 +146,7 @@ export async function fetchGoldHistory(city: string = 'kerala'): Promise<GoldHis
             const val = Number(item.price || item.val || item['22k'] || 0);
             return {
                 date: item.date,
-                price: val
+                price: val * 8 // user requested 8 gram / 1 pavan price
             };
         });
 
@@ -137,13 +156,7 @@ export async function fetchGoldHistory(city: string = 'kerala'): Promise<GoldHis
     }
 }
 
-export interface MarketData {
-    symbol: string;
-    price: number;
-    change: number;
-    percentChange: number;
-    direction: 'up' | 'down' | 'flat';
-}
+
 
 export async function fetchMarketData(): Promise<MarketData[]> {
     // 1. Get Live Gold Data (reuse logic mostly, or just fetch lightweight)

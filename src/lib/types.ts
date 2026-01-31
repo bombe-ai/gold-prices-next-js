@@ -24,3 +24,11 @@ export interface GoldHistoryItem {
   date: string;
   price: number;
 }
+
+export interface MarketData {
+  symbol: string;
+  price: number;
+  change: number;
+  percentChange: number;
+  direction: 'up' | 'down' | 'flat';
+}

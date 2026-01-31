@@ -1,4 +1,4 @@
-import { MarketData } from '@/lib/api';
+import { MarketData } from '@/lib/types';
 import { MarketMarquee } from './MarketMarquee';
 
 interface TopBannerProps {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from 'react';
-import { MarketData } from '@/lib/api';
+import { MarketData } from '@/lib/types';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 

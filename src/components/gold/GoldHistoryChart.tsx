@@ -43,7 +43,7 @@ export function GoldHistoryChart({ data }: GoldHistoryChartProps) {
             <div ref={chartRef}>
                 <div className="mb-6">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">Gold Price Trend</h3>
-                    <p className="text-sm text-gray-500">Last 30 Days History (22K)</p>
+                    <p className="text-sm text-gray-500">Last 30 Days History (22K - 1 Pavan)</p>
                 </div>
 
                 <div className="h-[300px] w-full">
