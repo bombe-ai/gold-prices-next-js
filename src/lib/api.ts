@@ -136,3 +136,201 @@ export async function fetchGoldHistory(city: string = 'kerala'): Promise<GoldHis
         return [];
     }
 }
+
+export interface MarketData {
+    symbol: string;
+    price: number;
+    change: number;
+    percentChange: number;
+    direction: 'up' | 'down' | 'flat';
+}
+
+export async function fetchMarketData(): Promise<MarketData[]> {
+    // 1. Get Live Gold Data (reuse logic mostly, or just fetch lightweight)
+    // We'll reuse fetchTodayGoldPrice for simplicity as it's cached
+    const goldData = await fetchTodayGoldPrice();
+
+    const marketItems: MarketData[] = [];
+
+    // --- Real Public APIs ---
+
+    // 2. Crypto (CoinGecko) - Free Public API
+    const fetchCrypto = async () => {
+        try {
+            const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=inr&include_24hr_change=true', {
+                next: { revalidate: 60 } // Cache for 1 min
+            });
+            if (!res.ok) return [];
+            const data = await res.json();
+
+            const items: MarketData[] = [];
+            if (data.bitcoin) {
+                items.push({
+                    symbol: 'BTC/INR',
+                    price: data.bitcoin.inr,
+                    change: (data.bitcoin.inr * (data.bitcoin.inr_24h_change / 100)), // Approx change value
+                    percentChange: data.bitcoin.inr_24h_change,
+                    direction: data.bitcoin.inr_24h_change >= 0 ? 'up' : 'down'
+                });
+            }
+            if (data.ethereum) {
+                items.push({
+                    symbol: 'ETH/INR',
+                    price: data.ethereum.inr,
+                    change: (data.ethereum.inr * (data.ethereum.inr_24h_change / 100)),
+                    percentChange: data.ethereum.inr_24h_change,
+                    direction: data.ethereum.inr_24h_change >= 0 ? 'up' : 'down'
+                });
+            }
+            return items;
+        } catch (e) {
+            console.error('Crypto API Error', e);
+            return [];
+        }
+    };
+
+    // 3. Forex (ExchangeRate-API) - Free Public API
+    const fetchForex = async () => {
+        try {
+            // Base USD to get USD->INR. For others we calculate relative?
+            // Actually https://api.exchangerate-api.com/v4/latest/USD gives .rates.INR (USD to INR)
+            // https://api.exchangerate-api.com/v4/latest/GBP gives .rates.INR (GBP to INR)
+            // Let's just fetch slightly different endpoints or calculate from one base if we assume cross-rates are consistent.
+            // Fetching multiple might be slow. Let's fetch USD base and derive others? 
+            // Or just fetch one. Let's fetch USD base.
+
+            const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD', {
+                next: { revalidate: 3600 }
+            });
+            if (!res.ok) return [];
+            const data = await res.json();
+            const inrRate = data.rates.INR; // 1 USD = x INR
+
+            const items: MarketData[] = [];
+            if (inrRate) {
+                items.push({
+                    symbol: 'USD/INR',
+                    price: inrRate,
+                    change: 0, // API doesn't give change vs yesterday easily without history. 
+                    percentChange: 0,
+                    direction: 'flat'
+                });
+            }
+
+            // To get GBP/INR, we can fetch GBP base or infer. 
+            // Let's do a client-side calculation if we have GBP in USD base?
+            // GBP -> USD is 1/data.rates.GBP. Then * data.rates.INR.
+            // GBP/INR = (1 / USD_per_GBP) * USD_per_INR? No.
+            // data.rates.GBP is "How many GBP for 1 USD". e.g. 0.79.
+            // So 1 USD = 0.79 GBP. 1 GBP = 1.26 USD.
+            // 1 GBP = 1.26 USD * (83 INR / 1 USD) = 104 INR.
+            // Formula: Rate_Currency_to_INR = Rate_USD_to_INR / Rate_USD_to_Currency
+
+            if (data.rates.GBP) {
+                const gbpInr = inrRate / data.rates.GBP;
+                items.push({
+                    symbol: 'GBP/INR',
+                    price: gbpInr,
+                    change: 0,
+                    percentChange: 0,
+                    direction: 'flat'
+                });
+            }
+
+            if (data.rates.EUR) {
+                const eurInr = inrRate / data.rates.EUR;
+                items.push({
+                    symbol: 'EUR/INR',
+                    price: eurInr,
+                    change: 0,
+                    percentChange: 0,
+                    direction: 'flat'
+                });
+            }
+
+            if (data.rates.AED) {
+                const aedInr = inrRate / data.rates.AED;
+                items.push({
+                    symbol: 'AED/INR',
+                    price: aedInr,
+                    change: 0,
+                    percentChange: 0,
+                    direction: 'flat'
+                });
+            }
+
+            return items;
+
+        } catch (e) {
+            console.error('Forex API Error', e);
+            return [];
+        }
+    };
+
+
+    // 4. Gold/Silver Proxies (CoinGecko) - "pax-gold" (Gold) and "kinesis-silver" (Silver)
+    // These track real commodity prices very closely and are available on the free Crypto API.
+    const fetchCommodityProxies = async () => {
+        try {
+            // Note: CoinGecko requires User-Agent sometimes. default fetch usually suffices or we add simple headers.
+            const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pax-gold,kinesis-silver&vs_currencies=inr&include_24hr_change=true', {
+                next: { revalidate: 60 }
+            });
+            if (!res.ok) return [];
+            const data = await res.json();
+
+            const items: MarketData[] = [];
+
+            // PAX Gold (PAXG) ~ 1 oz Gold.  1 oz = 31.1035 grams.
+            // Our local price is usually per gram or 8g. 
+            // Let's typically show the "Global Gold (1oz)" price or convert?
+            // Market tickers usually show the Asset price. Let's show PAXG price but labeled "Global Gold".
+            if (data['pax-gold']) {
+                items.push({
+                    symbol: 'Gold (Global)',
+                    price: data['pax-gold'].inr,
+                    change: (data['pax-gold'].inr * (data['pax-gold'].inr_24h_change / 100)),
+                    percentChange: data['pax-gold'].inr_24h_change,
+                    direction: data['pax-gold'].inr_24h_change >= 0 ? 'up' : 'down'
+                });
+            }
+
+            // Kinesis Silver (KAG) ~ 1 oz Silver
+            if (data['kinesis-silver']) {
+                items.push({
+                    symbol: 'Silver (Global)',
+                    price: data['kinesis-silver'].inr,
+                    change: (data['kinesis-silver'].inr * (data['kinesis-silver'].inr_24h_change / 100)),
+                    percentChange: data['kinesis-silver'].inr_24h_change,
+                    direction: data['kinesis-silver'].inr_24h_change >= 0 ? 'up' : 'down'
+                });
+            }
+
+            return items;
+
+        } catch (e) {
+            console.error('Commodity Proxy API Error', e);
+            return [];
+        }
+    };
+
+    const [cryptoItems, forexItems, commodityItems] = await Promise.all([fetchCrypto(), fetchForex(), fetchCommodityProxies()]);
+
+    // Add Internal Gold/Silver (Priority)
+    if (goldData) {
+
+        // Safety check for previous price to avoid division by zero or undefined
+        const safePrevPrice22k = goldData.previousPrice22k || goldData.price22k;
+
+        marketItems.push({
+            symbol: 'Gold (Kerala)', // Renamed to distinguish from Global
+            price: goldData.price22k,
+            change: goldData.change22k,
+            percentChange: (goldData.change22k / safePrevPrice22k) * 100,
+            direction: goldData.direction22k as 'up' | 'down' | 'flat'
+        });
+    }
+
+    // Add Global Proxies
+    return [...marketItems, ...commodityItems, ...cryptoItems, ...forexItems];
+}

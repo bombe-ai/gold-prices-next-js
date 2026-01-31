@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc; /* Slate 50 */
-  --foreground: #0f172a; /* Slate 900 */
+  --background: #f8fafc;
+  /* Slate 50 */
+  --foreground: #0f172a;
+  /* Slate 900 */
 }
 
 @theme inline {
@@ -17,12 +19,13 @@
   --color-gold-200: #fde68a;
   --color-gold-300: #fcd34d;
   --color-gold-400: #fbbf24;
-  --color-gold-500: #f59e0b; /* Base Gold */
+  --color-gold-500: #f59e0b;
+  /* Base Gold */
   --color-gold-600: #d97706;
   --color-gold-700: #b45309;
   --color-gold-800: #92400e;
   --color-gold-900: #78350f;
-  
+
   --color-rich-black: #0a0a0a;
   --color-card-bg: #ffffff;
   --color-success: #10b981;
@@ -31,7 +34,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f172a; /* Slate 950 */
+    --background: #0f172a;
+    /* Slate 950 */
     --foreground: #ededed;
   }
 }
@@ -47,13 +51,44 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-gold-200);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold-400);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 45s linear infinite;
+}
+
+.animate-marquee2 {
+  animation: marquee2 45s linear infinite;
 }

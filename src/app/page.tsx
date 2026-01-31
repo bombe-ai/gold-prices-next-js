@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { fetchTodayGoldPrice, fetchGoldHistory } from '@/lib/api';
+import { fetchTodayGoldPrice, fetchGoldHistory, fetchMarketData } from '@/lib/api';
 import { TopBanner } from '@/components/banners/TopBanner';
 import { GoldTodayCard } from '@/components/gold/GoldTodayCard';
 import { GoldHistoryChart } from '@/components/gold/GoldHistoryChart';
@@ -17,14 +17,15 @@ export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const city = params.city || 'kerala';
 
-  const [priceData, historyData] = await Promise.all([
+  const [priceData, historyData, marketData] = await Promise.all([
     fetchTodayGoldPrice(city),
-    fetchGoldHistory(city)
+    fetchGoldHistory(city),
+    fetchMarketData()
   ]);
 
   return (
     <main className="min-h-screen pb-20">
-      <TopBanner />
+      <TopBanner marketData={marketData} />
 
       <div className="container mx-auto px-4">
         <header className="py-8 text-center">
