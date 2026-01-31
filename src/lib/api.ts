@@ -130,7 +130,7 @@ export async function fetchGoldHistory(city: string = 'kerala'): Promise<GoldHis
 
         const res = await fetch(url, {
             headers: HEADERS,
-            next: { revalidate: 3600 * 12 }
+            next: { revalidate: 3600 }
         });
 
         if (!res.ok) throw new Error('Failed to fetch gold history');

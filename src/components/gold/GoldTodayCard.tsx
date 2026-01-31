@@ -165,11 +165,11 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                     {/* Stats Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                         <div>
-                            <p className="text-red-500 font-semibold mb-1">Highest of Month</p>
+                            <p className="text-red-500 font-semibold mb-1">Highest (30 Days)</p>
                             <p className="text-3xl font-bold text-red-500">₹{highestOfMonth.toLocaleString('en-IN')}</p>
                         </div>
                         <div>
-                            <p className="text-green-600 font-semibold mb-1">Lowest of Month</p>
+                            <p className="text-green-600 font-semibold mb-1">Lowest (30 Days)</p>
                             <p className="text-3xl font-bold text-green-600">₹{lowestOfMonth.toLocaleString('en-IN')}</p>
                         </div>
                         <div>

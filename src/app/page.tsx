@@ -47,14 +47,14 @@ export default async function Home({ searchParams }: HomeProps) {
           )}
         </Suspense>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-3">
-          <div className="lg:col-span-2">
+        <div className="mt-8 flex flex-col gap-8">
+          <div className="w-full">
             <Suspense fallback={<div className="h-[300px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
               <GoldHistoryChart data={historyData} />
             </Suspense>
           </div>
 
-          <div className="lg:col-span-1">
+          <div className="w-full max-w-3xl mx-auto">
             <Suspense fallback={<div className="h-[400px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
               <GoldTable data={historyData} />
             </Suspense>
