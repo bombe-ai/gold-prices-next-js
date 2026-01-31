@@ -6,6 +6,8 @@ import { Card } from '../ui/Card';
 import { GoldHistoryItem } from '@/lib/types';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { Download, FileText } from 'lucide-react';
+import { exportToCSV, exportToPDF } from '@/lib/exportUtils';
 
 interface GoldHistoryChartProps {
     data: GoldHistoryItem[];
@@ -41,12 +43,35 @@ export function GoldHistoryChart({ data }: GoldHistoryChartProps) {
     return (
         <Card className="p-6">
             <div ref={chartRef}>
-                <div className="mb-6">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Gold Price Trend</h3>
-                    <p className="text-sm text-gray-500">Last 30 Days History (22K - 1 Pavan)</p>
+                <div className="mb-6 flex items-center justify-between">
+                    <div>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">Gold Price Trend</h3>
+                        <p className="text-sm text-gray-500">Last 30 Days History (22K - 1 Pavan)</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => exportToCSV(data, 'gold-price-history', [
+                                { key: 'date', label: 'Date' },
+                                { key: 'price', label: 'Price (22K 8g)' }
+                            ])}
+                            className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+                            title="Export as CSV"
+                        >
+                            <FileText className="h-3.5 w-3.5" />
+                            CSV
+                        </button>
+                        <button
+                            onClick={() => exportToPDF('history-chart-export', 'gold-price-trend', 'Gold Price Trend (30 Days)')}
+                            className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+                            title="Export as PDF"
+                        >
+                            <Download className="h-3.5 w-3.5" />
+                            PDF
+                        </button>
+                    </div>
                 </div>
 
-                <div className="h-[300px] w-full">
+                <div id="history-chart-export" className="h-[300px] w-full bg-white dark:bg-gray-900 p-2">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart
                             data={formattedData}

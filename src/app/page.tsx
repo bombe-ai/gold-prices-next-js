@@ -27,7 +27,7 @@ export default async function Home({ searchParams }: HomeProps) {
     <main className="min-h-screen pb-20">
       <TopBanner marketData={marketData} />
 
-      <div className="container mx-auto px-4">
+      <div className="mx-auto px-4 w-full max-w-[1050px]">
         <header className="py-8 text-center">
           <h1 className="text-4xl font-extrabold text-gold-900 dark:text-gold-100 sm:text-5xl">
             Gold Rates <span className="text-gold-500">Live</span>
@@ -54,7 +54,7 @@ export default async function Home({ searchParams }: HomeProps) {
             </Suspense>
           </div>
 
-          <div className="w-full max-w-3xl mx-auto">
+          <div className="w-[514px]">
             <Suspense fallback={<div className="h-[400px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
               <GoldTable data={historyData} />
             </Suspense>

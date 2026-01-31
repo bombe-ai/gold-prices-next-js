@@ -104,7 +104,7 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
     return (
         <section ref={containerRef} className="py-6">
             <div className="flex justify-center">
-                <Card className="animate-enter w-full max-w-4xl overflow-hidden bg-white p-8 shadow-xl dark:bg-gray-900 border-none ring-1 ring-gray-100 dark:ring-gray-800">
+                <Card className="animate-enter w-full overflow-hidden bg-white p-8 shadow-xl dark:bg-gray-900 border-none ring-1 ring-gray-100 dark:ring-gray-800">
 
                     {/* Header Badge */}
                     <div className="flex justify-center mb-4">
