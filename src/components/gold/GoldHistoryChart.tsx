@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card } from '../ui/Card';
 import { GoldHistoryItem } from '@/lib/types';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 interface GoldHistoryChartProps {
     data: GoldHistoryItem[];
@@ -13,15 +14,21 @@ interface GoldHistoryChartProps {
 export function GoldHistoryChart({ data }: GoldHistoryChartProps) {
     const chartRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (chartRef.current) {
-            gsap.fromTo(
-                chartRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2 }
-            );
-        }
-    }, []);
+    useGSAP(() => {
+        gsap.fromTo(
+            chartRef.current,
+            { opacity: 0, y: 30, scale: 0.98 },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1,
+                ease: 'power3.out',
+                delay: 0.2,
+                clearProps: "all" // Clear styles after animation to prevent tooltip issues
+            }
+        );
+    }, { scope: chartRef });
 
     if (!data || data.length === 0) return null;
 
