@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://keralagoldrates.com'
+    const baseUrl = 'https://goldkerala.com'
 
     return [
         {

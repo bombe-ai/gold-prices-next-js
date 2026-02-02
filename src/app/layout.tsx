@@ -14,20 +14,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Today's Gold Rate in Kerala | Live 22K & 24K Price (No Commission)",
+  metadataBase: new URL('https://goldkerala.com'),
+  title: "Today's Gold Rate in Kerala | Live 22K & 24K Price",
   description: "Check today's live Gold Rate in Kerala per Gram & Pavan (8g). Real-time 22K, 24K, 18K gold prices, silver rates, and daily market trends in Kerala, India. Best price for jewellery.",
   keywords: [
     "gold rate kerala", "today gold price kerala", "22k gold rate in kerala", "24k gold rate",
     "gold price per gram", "1 pavan gold rate today", "8 gram gold price", "silver rate kerala",
-    "today gold rate", "kerala gold market"
+    "today gold rate", "kerala gold market", "gold rate today", "gold price today"
   ],
   openGraph: {
     title: "Today's Gold Rate in Kerala | Live 22K & 24K Price",
     description: "Track the latest Gold Rates in Kerala (22K & 24K) per Gram & Pavan. Live updates, market trends, and historical price charts.",
     type: "website",
     locale: "en_IN",
-    siteName: "Kerala Gold Rates Live",
-    url: "https://keralagoldrates.com",
+    siteName: "Gold Kerala",
+    url: "https://goldkerala.com",
     images: [
       {
         url: "/og-gold-kerala.png", // Ensure this image exists or use a placeholder
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     description: "Live updates on Kerala Gold prices. Check today's 22K/24K rates per gram and pavan.",
   },
   alternates: {
-    canonical: "https://keralagoldrates.com", // Replace with actual domain
+    canonical: "https://goldkerala.com",
   },
 };
 
@@ -57,11 +58,11 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Kerala Gold Rates Live",
-    "url": "https://keralagoldrates.com",
+    "name": "Gold Kerala",
+    "url": "https://goldkerala.com",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://keralagoldrates.com/?city={search_term_string}",
+      "target": "https://goldkerala.com/?city={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };
@@ -71,7 +72,7 @@ export default function RootLayout({
     "@type": "FinancialProduct",
     "name": "Gold Rate Kerala",
     "description": "Live Gold Rate in Kerala for 22K and 24K Purity",
-    "brand": "Kerala Gold Market",
+    "brand": "Gold Kerala",
     "areaServed": {
       "@type": "State",
       "name": "Kerala"
