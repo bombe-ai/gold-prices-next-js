@@ -3,8 +3,7 @@
 import React from 'react';
 import { Card } from '../ui/Card';
 import { GoldHistoryItem } from '@/lib/types';
-import { TrendingUp, TrendingDown, Minus, Download, FileText } from 'lucide-react';
-import { exportToCSV, exportToPDF } from '@/lib/exportUtils';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 interface GoldTableProps {
     data: GoldHistoryItem[];
@@ -32,17 +31,6 @@ export function GoldTable({ data }: GoldTableProps) {
         <Card className="h-full overflow-hidden p-0 border-none shadow-none ring-0">
             <div className="border-b border-gray-100 bg-gray-50/50 p-4 dark:border-gray-800 dark:bg-gray-800/50 flex items-center justify-between">
                 <h3 className="font-bold text-gray-900 dark:text-white">Price History (30 Days)</h3>
-                <div className="flex gap-2">
-
-                    <button
-                        onClick={() => exportToPDF('history-table-export', 'gold-price-history-table', 'Gold Price History Table')}
-                        className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
-                        title="Export as PDF"
-                    >
-                        <Download className="h-3.5 w-3.5" />
-                        PDF
-                    </button>
-                </div>
             </div>
             <div id="history-table-export" className="w-full bg-white dark:bg-gray-900 p-2">
                 <table className="w-full text-sm">
