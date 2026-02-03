@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     url: "https://goldkerala.com",
     images: [
       {
-        url: "/og-gold-kerala.png", // Ensure this image exists or use a placeholder
+        url: "/thumbnail.png", // Ensure this image exists or use a placeholder
         width: 1200,
         height: 630,
         alt: "Kerala Gold Rate Live Graph",
@@ -45,6 +45,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://goldkerala.com",
+  },
+  icons: {
+    icon: "/icon.png",
   },
 };
 
