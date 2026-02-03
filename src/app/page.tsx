@@ -24,15 +24,15 @@ export default async function Home({ searchParams }: HomeProps) {
   ]);
 
   return (
-    <main className="min-h-screen pb-20">
+    <main className="min-h-screen pb-20 bg-gray-50/50">
       <TopBanner marketData={marketData} />
 
-      <div className="mx-auto px-4 w-full max-w-[1050px]">
-        <header className="py-8 text-center">
-          <h1 className="text-4xl font-extrabold text-gold-900 dark:text-gold-100 sm:text-5xl">
-            Gold Rates <span className="text-gold-500">Live</span>
+      <div className="mx-auto px-4 w-full max-w-7xl">
+        <header className="py-6 text-center">
+          <h1 className="text-3xl font-extrabold text-kerala-900 sm:text-4xl">
+            Gold Rates <span className="text-gold-600">Live</span>
           </h1>
-          <p className="mt-2 text-gold-700/80 dark:text-gold-200/60">
+          <p className="mt-1 text-sm font-medium text-kerala-700/80">
             Real-time gold prices in Kerala, India
           </p>
         </header>
@@ -47,14 +47,14 @@ export default async function Home({ searchParams }: HomeProps) {
           )}
         </Suspense>
 
-        <div className="mt-8 flex flex-col gap-8">
-          <div className="w-full">
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-8 w-full">
             <Suspense fallback={<div className="h-[300px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
               <GoldHistoryChart data={historyData} />
             </Suspense>
           </div>
 
-          <div className="w-[514px]">
+          <div className="lg:col-span-4 w-full">
             <Suspense fallback={<div className="h-[400px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
               <GoldTable data={historyData} />
             </Suspense>

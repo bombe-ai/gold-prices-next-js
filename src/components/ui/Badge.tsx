@@ -12,10 +12,10 @@ export function TrendBadge({ change, direction, currency = '₹' }: BadgeProps) 
     const isDown = direction === 'down';
 
     const colorClass = isUp
-        ? 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400'
+        ? 'text-emerald-600 bg-emerald-50'
         : isDown
-            ? 'text-rose-600 bg-rose-50 dark:bg-rose-900/20 dark:text-rose-400'
-            : 'text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-400';
+            ? 'text-rose-600 bg-rose-50'
+            : 'text-gray-600 bg-gray-50';
 
     const Icon = isUp ? ArrowUp : isDown ? ArrowDown : Minus;
 
