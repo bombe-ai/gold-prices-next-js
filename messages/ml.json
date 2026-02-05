@@ -6,10 +6,10 @@
         "ml": "മല"
     },
     "TopBanner": {
-        "marketStatus": {
-            "open": "വിപണി സജീവം",
-            "closed": "വിപണി അടച്ചു"
-        }
+        "scrollingText": "സ്വർണ്ണ, വെള്ളി നിരക്കുകൾ • തത്സമയ അപ്‌ഡേറ്റുകൾ",
+        "location": "കേരളം, ഇന്ത്യ",
+        "marketOpen": "വിപണി സജീവം",
+        "marketClosed": "വിപണി അടച്ചു"
     },
     "HomePage": {
         "title": "സ്വർണ്ണ വില",

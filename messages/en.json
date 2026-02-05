@@ -6,10 +6,10 @@
         "ml": "മല"
     },
     "TopBanner": {
-        "marketStatus": {
-            "open": "Market Open",
-            "closed": "Market Closed"
-        }
+        "scrollingText": "Gold & Silver Rates • Real-time Updates",
+        "location": "Kerala, India",
+        "marketOpen": "Live Market Open",
+        "marketClosed": "Market Closed"
     },
     "HomePage": {
         "title": "Gold Rates",
