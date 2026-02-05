@@ -101,8 +101,10 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TopBanner marketData={marketData} />
-        <Header />
+        <div className="sticky top-0 z-50 w-full">
+          <TopBanner marketData={marketData} />
+          <Header />
+        </div>
         <PageAnimateWrapper>
           {children}
         </PageAnimateWrapper>
