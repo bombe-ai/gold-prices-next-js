@@ -7,7 +7,7 @@ interface TopBannerProps {
 
 export function TopBanner({ marketData }: TopBannerProps) {
     return (
-        <div className="w-full bg-gradient-to-r from-kerala-950 to-kerala-900 h-10 overflow-hidden text-white border-b border-kerala-800 relative z-50">
+        <div className="w-full bg-[#1F222D] h-10 overflow-hidden text-white border-b border-kerala-800 relative z-50">
             {marketData && marketData.length > 0 ? (
                 <MarketMarquee items={marketData} />
             ) : (
