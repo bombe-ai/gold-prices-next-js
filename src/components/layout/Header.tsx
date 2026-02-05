@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { Logo } from '../ui/Logo';
+import { LanguageToggle } from '../common/LanguageToggle';
+
+import { useTranslations } from 'next-intl';
 
 export const Header = () => {
+    const t = useTranslations('Header');
     return (
         <header className="w-full bg-white/80 backdrop-blur-md border-b border-gray-100">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -10,8 +14,8 @@ export const Header = () => {
                     <Link href="/" className="flex items-center gap-3 group">
                         <Logo className="h-[29px] w-[29px] text-gold-500 transition-transform group-hover:scale-105" />
                         <span className="text-[30px] font-bold text-kerala-900   flex items-center">
-                            <span className="text-[#E09921]">Gold</span>
-                            <span className="text-[#E09921]">kerala</span>
+                            <span className="text-[#E09921]">{t('gold')}</span>
+                            <span className="text-[#E09921]">{t('kerala')}</span>
                         </span>
                     </Link>
                 </div>
@@ -31,22 +35,10 @@ export const Header = () => {
 
                 {/* Right: Language Selector */}
                 <div className="flex items-center gap-4">
-                    <div className="flex items-center rounded-lg bg-gray-100 p-1 ">
-                        <button
-                            className="rounded-md bg-[#F6A824] px-3 py-1 text-xs font-bold text-white shadow-sm"
-                            aria-label="English"
-                        >
-                            EN
-                        </button>
-                        <button
-                            className="rounded-md px-3 py-1 text-xs font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400  "
-                            aria-label="Malayalam"
-                        >
-                            മല
-                        </button>
-                    </div>
+                    <LanguageToggle />
                 </div>
             </div>
         </header>
     );
 };
+

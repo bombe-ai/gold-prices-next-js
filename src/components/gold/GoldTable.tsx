@@ -5,11 +5,14 @@ import { Card } from '../ui/Card';
 import { GoldHistoryItem } from '@/lib/types';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
+import { useTranslations } from 'next-intl';
+
 interface GoldTableProps {
     data: GoldHistoryItem[];
 }
 
 export function GoldTable({ data }: GoldTableProps) {
+    const t = useTranslations('GoldTable');
     // Sort by date desc for table view
     const sortedData = [...data].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -30,16 +33,16 @@ export function GoldTable({ data }: GoldTableProps) {
     return (
         <Card className="h-full overflow-hidden p-0 border border-kerala-100 shadow-sm rounded-2xl bg-white">
             <div className="border-b border-gray-100 bg-kerala-50/50 p-4 flex items-center justify-between">
-                <h3 className="font-bold text-kerala-900 text-sm">Price History (30 Days)</h3>
+                <h3 className="font-bold text-kerala-900 text-sm">{t('title')}</h3>
             </div>
             <div id="history-table-export" className="w-full bg-white p-0">
                 <div className="overflow-y-auto max-h-[400px] scrollbar-thin scrollbar-thumb-kerala-200">
                     <table className="w-full text-xs">
                         <thead className="bg-gray-50 text-left sticky top-0 z-10">
                             <tr>
-                                <th className="px-3 py-2.5 font-semibold text-gray-500">Date</th>
-                                <th className="px-3 py-2.5 text-right font-semibold text-gray-500">Price (8g)</th>
-                                <th className="px-3 py-2.5 text-right font-semibold text-gray-500">Trend</th>
+                                <th className="px-3 py-2.5 font-semibold text-gray-500">{t('colDate')}</th>
+                                <th className="px-3 py-2.5 text-right font-semibold text-gray-500">{t('colPrice')}</th>
+                                <th className="px-3 py-2.5 text-right font-semibold text-gray-500">{t('colTrend')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -66,7 +69,7 @@ export function GoldTable({ data }: GoldTableProps) {
                                                 {new Date(item.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
                                                 {isDateToday && (
                                                     <span className="rounded-full bg-kerala-100 px-1.5 py-0.5 text-[10px] font-bold text-kerala-700">
-                                                        Today
+                                                        {t('today')}
                                                     </span>
                                                 )}
                                             </div>
@@ -77,12 +80,12 @@ export function GoldTable({ data }: GoldTableProps) {
                                                 <div className="flex gap-1 mt-0.5">
                                                     {isHighest && (
                                                         <span className="rounded-full bg-red-100 px-1.5 py-0 text-[10px] font-bold uppercase text-red-700">
-                                                            High
+                                                            {t('high')}
                                                         </span>
                                                     )}
                                                     {isLowest && (
                                                         <span className="rounded-full bg-green-100 px-1.5 py-0 text-[10px] font-bold uppercase text-green-700">
-                                                            Low
+                                                            {t('low')}
                                                         </span>
                                                     )}
                                                 </div>

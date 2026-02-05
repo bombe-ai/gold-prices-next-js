@@ -8,6 +8,8 @@ import { MapPin, CalendarDays, TrendingUp, TrendingDown, Minus } from 'lucide-re
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
+import { useTranslations } from 'next-intl';
+
 gsap.registerPlugin(useGSAP);
 
 interface GoldTodayCardProps {
@@ -16,6 +18,7 @@ interface GoldTodayCardProps {
 }
 
 export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
+    const t = useTranslations('GoldTodayCard');
     const containerRef = useRef<HTMLElement>(null);
     const priceRef = useRef<HTMLDivElement>(null);
 
@@ -113,14 +116,14 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                             </span>
-                            Live Market
+                            {t('liveMarket')}
                         </div>
                     </div>
 
                     {/* Title */}
                     <div className="text-center mb-4">
                         <h2 className="text-lg font-medium text-gray-500">
-                            22 Karat Gold (8 grams)
+                            {t('mainTitle')}
                         </h2>
                     </div>
 
@@ -135,8 +138,8 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
 
                         {/* Change Badge */}
                         <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-base ${data.direction22k === 'up' ? 'bg-green-100 text-green-700' :
-                                data.direction22k === 'down' ? 'bg-red-100 text-red-700' :
-                                    'bg-gray-100 text-gray-700'
+                            data.direction22k === 'down' ? 'bg-red-100 text-red-700' :
+                                'bg-gray-100 text-gray-700'
                             }`}>
                             {data.direction22k === 'up' ? <TrendingUp className="h-5 w-5" /> :
                                 data.direction22k === 'down' ? <TrendingDown className="h-5 w-5" /> :
@@ -154,7 +157,7 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                     {/* Timestamp */}
                     <div className="text-center mb-8 text-gray-400 text-xs flex items-center justify-center gap-1.5">
                         <CalendarDays className="h-3.5 w-3.5" />
-                        <span>Last updated: {new Date(data.date).toLocaleString('en-IN', {
+                        <span>{t('lastUpdated')} {new Date(data.date).toLocaleString('en-IN', {
                             dateStyle: 'medium',
                             timeStyle: 'short'
                         })}</span>
@@ -165,15 +168,15 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                     {/* Stats Grid */}
                     <div className="grid grid-cols-3 gap-4 text-center">
                         <div className="p-3 rounded-xl bg-red-50 border border-red-100">
-                            <p className="text-red-600 text-xs font-semibold mb-1 uppercase tracking-wide">High (30d)</p>
+                            <p className="text-red-600 text-xs font-semibold mb-1 uppercase tracking-wide">{t('high30d')}</p>
                             <p className="text-2xl font-bold text-red-700">₹{highestOfMonth.toLocaleString('en-IN')}</p>
                         </div>
                         <div className="p-3 rounded-xl bg-green-50 border border-green-100">
-                            <p className="text-green-600 text-xs font-semibold mb-1 uppercase tracking-wide">Low (30d)</p>
+                            <p className="text-green-600 text-xs font-semibold mb-1 uppercase tracking-wide">{t('low30d')}</p>
                             <p className="text-2xl font-bold text-green-700">₹{lowestOfMonth.toLocaleString('en-IN')}</p>
                         </div>
                         <div className="p-3 rounded-xl bg-gray-50 border border-gray-100">
-                            <p className="text-gray-500 text-xs font-semibold mb-1 uppercase tracking-wide">Yesterday</p>
+                            <p className="text-gray-500 text-xs font-semibold mb-1 uppercase tracking-wide">{t('yesterday')}</p>
                             <p className="text-2xl font-bold text-gray-700">₹{yesterday8g.toLocaleString('en-IN')}</p>
                         </div>
                     </div>
@@ -186,16 +189,16 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                 {/* 22K Card */}
                 <Card className="animate-card overflow-hidden border border-gold-200 p-0 shadow-sm hover:shadow-md transition-shadow">
                     <div className="bg-gradient-to-r from-gold-100/50 to-white p-3 text-center border-b border-gold-100">
-                        <h3 className="text-base font-bold text-gold-900">22K Gold</h3>
-                        <p className="text-[10px] text-gold-600 font-medium uppercase tracking-wider">Standard Hallmark</p>
+                        <h3 className="text-base font-bold text-gold-900">{t('gold22k')}</h3>
+                        <p className="text-[10px] text-gold-600 font-medium uppercase tracking-wider">{t('hallmark')}</p>
                     </div>
                     <div className="divide-y divide-gray-100 p-3 bg-white">
                         <div className="flex justify-between py-2">
-                            <span className="text-sm text-gray-500">1 Gram</span>
+                            <span className="text-sm text-gray-500">{t('gram1')}</span>
                             <span className="text-sm font-bold text-gray-900">₹{price1g_22k.toLocaleString('en-IN')}</span>
                         </div>
                         <div className="flex justify-between py-2">
-                            <span className="text-sm text-gray-500">8 Gram (Pavan)</span>
+                            <span className="text-sm text-gray-500">{t('gram8')}</span>
                             <span className="text-sm font-bold text-gray-900">₹{price8g_22k.toLocaleString('en-IN')}</span>
                         </div>
                     </div>
@@ -204,16 +207,16 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                 {/* 24K Card */}
                 <Card className="animate-card overflow-hidden border border-orange-200 p-0 shadow-sm hover:shadow-md transition-shadow">
                     <div className="bg-gradient-to-r from-orange-50 to-white p-3 text-center border-b border-orange-100">
-                        <h3 className="text-base font-bold text-orange-900">24K Gold</h3>
-                        <p className="text-[10px] text-orange-600 font-medium uppercase tracking-wider">99.9% Pure Gold</p>
+                        <h3 className="text-base font-bold text-orange-900">{t('gold24k')}</h3>
+                        <p className="text-[10px] text-orange-600 font-medium uppercase tracking-wider">{t('pure')}</p>
                     </div>
                     <div className="divide-y divide-gray-100 p-3 bg-white">
                         <div className="flex justify-between py-2">
-                            <span className="text-sm text-gray-500">1 Gram</span>
+                            <span className="text-sm text-gray-500">{t('gram1')}</span>
                             <span className="text-sm font-bold text-gray-900">₹{price1g_24k.toLocaleString('en-IN')}</span>
                         </div>
                         <div className="flex justify-between py-2">
-                            <span className="text-sm text-gray-500">8 Gram (Pavan)</span>
+                            <span className="text-sm text-gray-500">{t('gram8')}</span>
                             <span className="text-sm font-bold text-gray-900">₹{price8g_24k.toLocaleString('en-IN')}</span>
                         </div>
                     </div>
@@ -222,16 +225,16 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                 {/* 18K Card */}
                 <Card className="animate-card overflow-hidden border border-gray-200 p-0 shadow-sm hover:shadow-md transition-shadow">
                     <div className="bg-gradient-to-r from-gray-50 to-white p-3 text-center border-b border-gray-100">
-                        <h3 className="text-base font-bold text-gray-700">18K Gold</h3>
-                        <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">Rose Gold / Diamond</p>
+                        <h3 className="text-base font-bold text-gray-700">{t('gold18k')}</h3>
+                        <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">{t('roseDiamond')}</p>
                     </div>
                     <div className="divide-y divide-gray-100 p-3 bg-white">
                         <div className="flex justify-between py-2">
-                            <span className="text-sm text-gray-500">1 Gram</span>
+                            <span className="text-sm text-gray-500">{t('gram1')}</span>
                             <span className="text-sm font-bold text-gray-900">₹{price1g_18k.toLocaleString('en-IN')}</span>
                         </div>
                         <div className="flex justify-between py-2">
-                            <span className="text-sm text-gray-500">8 Gram (Pavan)</span>
+                            <span className="text-sm text-gray-500">{t('gram8')}</span>
                             <span className="text-sm font-bold text-gray-900">₹{price8g_18k.toLocaleString('en-IN')}</span>
                         </div>
                     </div>

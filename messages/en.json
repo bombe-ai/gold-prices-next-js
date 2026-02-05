@@ -1,0 +1,50 @@
+{
+    "Header": {
+        "gold": "Gold",
+        "kerala": "kerala",
+        "en": "EN",
+        "ml": "മല"
+    },
+    "TopBanner": {
+        "marketStatus": {
+            "open": "Market Open",
+            "closed": "Market Closed"
+        }
+    },
+    "HomePage": {
+        "title": "Gold Rates",
+        "live": "Live",
+        "subtitle": "Real-time gold prices in Kerala, India",
+        "error": "Unable to load today's gold rates. Please try again later."
+    },
+    "GoldTodayCard": {
+        "liveMarket": "Live Market",
+        "mainTitle": "22 Karat Gold (8 grams)",
+        "lastUpdated": "Last updated:",
+        "high30d": "High (30d)",
+        "low30d": "Low (30d)",
+        "yesterday": "Yesterday",
+        "gold22k": "22K Gold",
+        "hallmark": "Standard Hallmark",
+        "gold24k": "24K Gold",
+        "pure": "99.9% Pure Gold",
+        "gold18k": "18K Gold",
+        "roseDiamond": "Rose Gold / Diamond",
+        "gram1": "1 Gram",
+        "gram8": "8 Gram (Pavan)"
+    },
+    "GoldHistoryChart": {
+        "title": "Gold Price Trend",
+        "subtitle": "Last 30 Days (22K - 1 Pavan)",
+        "price": "Price"
+    },
+    "GoldTable": {
+        "title": "Price History (30 Days)",
+        "colDate": "Date",
+        "colPrice": "Price (8g)",
+        "colTrend": "Trend",
+        "today": "Today",
+        "high": "High",
+        "low": "Low"
+    }
+}

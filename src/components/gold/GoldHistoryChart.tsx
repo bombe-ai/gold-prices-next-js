@@ -8,11 +8,14 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 
+import { useTranslations } from 'next-intl';
+
 interface GoldHistoryChartProps {
     data: GoldHistoryItem[];
 }
 
 export function GoldHistoryChart({ data }: GoldHistoryChartProps) {
+    const t = useTranslations('GoldHistoryChart');
     const chartRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
@@ -44,8 +47,8 @@ export function GoldHistoryChart({ data }: GoldHistoryChartProps) {
             <div ref={chartRef}>
                 <div className="mb-4 flex items-center justify-between">
                     <div>
-                        <h3 className="text-base font-bold text-kerala-900">Gold Price Trend</h3>
-                        <p className="text-xs text-gray-500">Last 30 Days (22K - 1 Pavan)</p>
+                        <h3 className="text-base font-bold text-kerala-900">{t('title')}</h3>
+                        <p className="text-xs text-gray-500">{t('subtitle')}</p>
                     </div>
                 </div>
 
@@ -85,7 +88,7 @@ export function GoldHistoryChart({ data }: GoldHistoryChartProps) {
                                     boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                                     fontSize: '12px'
                                 }}
-                                formatter={(value: any) => [`₹${Number(value || 0).toLocaleString('en-IN')}`, 'Price']}
+                                formatter={(value: any) => [`₹${Number(value || 0).toLocaleString('en-IN')}`, t('price')]}
                                 labelStyle={{ color: '#6b7280', marginBottom: '4px' }}
                             />
                             <Area

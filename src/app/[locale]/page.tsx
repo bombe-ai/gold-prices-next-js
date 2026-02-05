@@ -12,9 +12,12 @@ interface HomeProps {
   searchParams: Promise<{ city?: string }>;
 }
 
+import { getTranslations } from 'next-intl/server';
+
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const city = params.city || 'kerala';
+  const t = await getTranslations('HomePage');
 
   const [priceData, historyData] = await Promise.all([
     fetchTodayGoldPrice(city),
@@ -27,10 +30,10 @@ export default async function Home({ searchParams }: HomeProps) {
       <div className="mx-auto px-4 w-full max-w-7xl">
         <header className="py-6 text-center">
           <h1 className="text-3xl font-extrabold text-kerala-900 sm:text-4xl">
-            Gold Rates <span className="text-gold-600">Live</span>
+            {t('title')} <span className="text-gold-600">{t('live')}</span>
           </h1>
           <p className="mt-1 text-sm font-medium text-kerala-700/80">
-            Real-time gold prices in Kerala, India
+            {t('subtitle')}
           </p>
         </header>
 
@@ -39,7 +42,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <GoldTodayCard data={priceData} historyData={historyData} />
           ) : (
             <div className="py-10 text-center text-gray-500">
-              Unable to load today's gold rates. Please try again later.
+              {t('error')}
             </div>
           )}
         </Suspense>
