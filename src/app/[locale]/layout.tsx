@@ -4,6 +4,7 @@ import "../globals.css";
 import { PageAnimateWrapper } from "@/components/ui/PageAnimateWrapper";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { TopBanner } from "@/components/banners/TopBanner";
 
@@ -132,6 +133,7 @@ export default async function LocaleLayout({
 
           <Footer />
         </NextIntlClientProvider>
+        <GoogleAnalytics gaId="G-ZS1SPENSSC" />
       </body>
     </html>
   );
