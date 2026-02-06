@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { getAllPosts } from '@/lib/wordpress';
 import { Card } from '@/components/ui/Card';
 import { CalendarDays, Clock } from 'lucide-react';
@@ -6,6 +7,48 @@ import Link from 'next/link';
 import { Logo } from '@/components/ui/Logo';
 
 export const revalidate = 3600;
+
+export async function generateMetadata({
+    params
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params;
+
+    return {
+        title: 'Latest Gold Insights & News | Gold Kerala Blog',
+        description: 'Stay updated with the latest news, trends, and expert analysis from the world of gold investment. Read our comprehensive guides and market insights.',
+        keywords: [
+            'gold news',
+            'gold investment',
+            'gold market trends',
+            'gold price analysis',
+            'gold investment tips',
+            'kerala gold news',
+            'gold market insights'
+        ],
+        openGraph: {
+            title: 'Latest Gold Insights & News | Gold Kerala Blog',
+            description: 'Expert analysis and insights on gold investment, market trends, and price movements in Kerala.',
+            type: 'website',
+            locale: locale === 'ml' ? 'ml_IN' : 'en_IN',
+            siteName: 'Gold Kerala',
+            url: `https://goldkerala.com/${locale}/blog`,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: 'Latest Gold Insights & News | Gold Kerala Blog',
+            description: 'Expert analysis and insights on gold investment and market trends.',
+        },
+        alternates: {
+            canonical: `https://goldkerala.com/${locale}/blog`,
+            languages: {
+                en: 'https://goldkerala.com/en/blog',
+                ml: 'https://goldkerala.com/ml/blog',
+            },
+        },
+    };
+}
 
 export default async function BlogPage({
     params
@@ -46,9 +89,6 @@ export default async function BlogPage({
                                     </div>
                                 ) : (
                                     <div className="relative h-48 w-full bg-gradient-to-br from-kerala-600/20 to-gold-500/20 flex items-center justify-center">
-                                        {/* <div className="text-white text-5xl font-bold opacity-80">
-                                            {post.title.charAt(0).toUpperCase()}
-                                        </div> */}
                                         <div className='opacity-40'>
                                             <Logo height={80} width={80}></Logo>
                                         </div>
