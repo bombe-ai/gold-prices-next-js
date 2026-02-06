@@ -61,7 +61,7 @@ async function fetchAPI(query: string, { variables }: { variables?: any } = {}) 
         method: 'POST',
         headers,
         body: JSON.stringify({ query, variables }),
-        next: { revalidate: 3600 }, // caching strategy: revalidate every hour
+        // next: { revalidate: 3600 }, // caching strategy: revalidate every hour
     });
 
     const json = await res.json();
