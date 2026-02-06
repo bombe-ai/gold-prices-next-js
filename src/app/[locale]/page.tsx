@@ -3,7 +3,6 @@ import { fetchTodayGoldPrice, fetchGoldHistory } from '@/lib/api';
 import { GoldTodayCard } from '@/components/gold/GoldTodayCard';
 import { GoldHistoryChart } from '@/components/gold/GoldHistoryChart';
 import { GoldTable } from '@/components/gold/GoldTable';
-import Loading from './loading';
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -13,6 +12,7 @@ interface HomeProps {
 }
 
 import { getTranslations } from 'next-intl/server';
+import Loading from './loading';
 
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
@@ -48,17 +48,17 @@ export default async function Home({ searchParams }: HomeProps) {
         </Suspense>
 
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-8 w-full">
+          <div className="lg:col-span-12 w-full">
             <Suspense fallback={<div className="h-[300px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
               <GoldHistoryChart data={historyData} />
             </Suspense>
           </div>
+        </div>
 
-          <div className="lg:col-span-4 w-full">
-            <Suspense fallback={<div className="h-[400px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
-              <GoldTable data={historyData} />
-            </Suspense>
-          </div>
+        <div className="mt-8 w-[514px]">
+          <Suspense fallback={<div className="h-[400px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
+            <GoldTable data={historyData} />
+          </Suspense>
         </div>
       </div>
     </main>

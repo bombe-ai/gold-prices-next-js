@@ -31,12 +31,12 @@ export function GoldTable({ data }: GoldTableProps) {
     };
 
     return (
-        <Card className="h-full overflow-hidden p-0 border border-kerala-100 shadow-sm rounded-2xl bg-white">
+        <Card className="p-0 border border-kerala-100 shadow-sm rounded-2xl bg-white">
             <div className="border-b border-gray-100 bg-kerala-50/50 p-4 flex items-center justify-between">
                 <h3 className="font-bold text-kerala-900 text-sm">{t('title')}</h3>
             </div>
             <div id="history-table-export" className="w-full bg-white p-0">
-                <div className="overflow-y-auto max-h-[400px] scrollbar-thin scrollbar-thumb-kerala-200">
+                <div className="scrollbar-thin scrollbar-thumb-kerala-200">
                     <table className="w-full text-xs">
                         <thead className="bg-gray-50 text-left sticky top-0 z-10">
                             <tr>
