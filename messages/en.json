@@ -46,5 +46,14 @@
         "today": "Today",
         "high": "High",
         "low": "Low"
+    },
+    "Blog": {
+        "title": "Latest Insights",
+        "subtitle": "News, trends, and analysis from the world of gold",
+        "readMore": "Read More",
+        "backToBlog": "Back to Blog",
+        "publishedOn": "Published on",
+        "share": "Share",
+        "save": "Save"
     }
 }
