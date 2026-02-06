@@ -70,5 +70,12 @@
         "address": "Thiruvananthapuram, Kerala, India",
         "rights": "All rights reserved.",
         "disclaimerText": "Prices are indicative and may vary. Please verify with local jewelers."
+    },
+    "NotFound": {
+        "title": "Page Not Found",
+        "code": "404",
+        "description": "Oops! The page you're looking for doesn't exist. It might have been moved or deleted.",
+        "backHome": "Back to Home",
+        "viewBlog": "View Blog"
     }
 }
