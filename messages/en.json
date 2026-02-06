@@ -55,5 +55,20 @@
         "publishedOn": "Published on",
         "share": "Share",
         "save": "Save"
+    },
+    "Footer": {
+        "tagline": "Your trusted source for real-time gold and silver rates in Kerala. Stay updated with accurate market prices and trends.",
+        "quickLinks": "Quick Links",
+        "home": "Home",
+        "blog": "Blog",
+        "about": "About Us",
+        "contact": "Contact",
+        "legal": "Legal",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "disclaimer": "Disclaimer",
+        "address": "Thiruvananthapuram, Kerala, India",
+        "rights": "All rights reserved.",
+        "disclaimerText": "Prices are indicative and may vary. Please verify with local jewelers."
     }
 }

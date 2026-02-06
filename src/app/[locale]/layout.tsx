@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { PageAnimateWrapper } from "@/components/ui/PageAnimateWrapper";
 import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 import { TopBanner } from "@/components/banners/TopBanner";
 
@@ -128,6 +129,8 @@ export default async function LocaleLayout({
           <PageAnimateWrapper>
             {children}
           </PageAnimateWrapper>
+
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
