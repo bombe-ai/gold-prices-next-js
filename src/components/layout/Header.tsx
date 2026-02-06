@@ -3,6 +3,7 @@ import { Logo } from '../ui/Logo';
 import { LanguageToggle } from '../common/LanguageToggle';
 
 import { useTranslations } from 'next-intl';
+import { LogoWithBranding } from '../ui/LogoWithBranding';
 
 export const Header = () => {
     const t = useTranslations('Header');
@@ -12,11 +13,11 @@ export const Header = () => {
                 {/* Left: Logo and Brand */}
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-3 group">
-                        <Logo className="h-[29px] w-[29px] text-gold-500 transition-transform group-hover:scale-105" />
-                        <span className="text-[30px] font-bold text-kerala-900   flex items-center">
+                        <LogoWithBranding className="h-[30px] w-[153px] text-gold-500 transition-transform group-hover:scale-105" />
+                        {/* <span className="text-[30px] font-bold text-kerala-900   flex items-center">
                             <span className="text-[#E09921]">{t('gold')}</span>
                             <span className="text-[#E09921]">{t('kerala')}</span>
-                        </span>
+                        </span> */}
                     </Link>
                 </div>
 
