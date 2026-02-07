@@ -54,7 +54,9 @@
         "backToBlog": "Back to Blog",
         "publishedOn": "Published on",
         "share": "Share",
-        "save": "Save"
+        "save": "Save",
+        "latestUpdates": "Latest Updates",
+        "viewAll": "View All"
     },
     "Footer": {
         "tagline": "Your trusted source for real-time gold and silver rates in Kerala. Stay updated with accurate market prices and trends.",

@@ -8,16 +8,19 @@ import { GoldRateCards } from '@/components/gold/GoldRateCards';
 // Revalidate every hour
 export const revalidate = 3600;
 
+import { HomeBlogList } from '@/components/home/HomeBlogList';
+
 interface HomeProps {
   searchParams: Promise<{ city?: string }>;
+  params: Promise<{ locale: string }>;
 }
 
 import { getTranslations } from 'next-intl/server';
 import Loading from './loading';
 
-export default async function Home({ searchParams }: HomeProps) {
-  const params = await searchParams;
-  const city = params.city || 'kerala';
+export default async function Home({ searchParams, params }: HomeProps) {
+  const { city = 'kerala' } = await searchParams;
+  const { locale } = await params;
   const t = await getTranslations('HomePage');
 
   const [priceData, historyData] = await Promise.all([
@@ -67,6 +70,12 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="mt-8 w-full">
           <Suspense fallback={<div className="h-[300px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
             <GoldHistoryChart data={historyData} />
+          </Suspense>
+        </div>
+
+        <div className="w-full">
+          <Suspense fallback={<div className="h-[400px] mt-8 rounded-2xl bg-gray-50/50 animate-pulse"></div>}>
+            <HomeBlogList locale={locale} />
           </Suspense>
         </div>
       </div>
