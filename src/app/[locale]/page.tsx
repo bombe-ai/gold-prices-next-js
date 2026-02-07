@@ -3,6 +3,7 @@ import { fetchTodayGoldPrice, fetchGoldHistory } from '@/lib/api';
 import { GoldTodayCard } from '@/components/gold/GoldTodayCard';
 import { GoldHistoryChart } from '@/components/gold/GoldHistoryChart';
 import { GoldTable } from '@/components/gold/GoldTable';
+import { GoldRateCards } from '@/components/gold/GoldRateCards';
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -39,7 +40,23 @@ export default async function Home({ searchParams }: HomeProps) {
 
         <Suspense fallback={<Loading />}>
           {priceData ? (
-            <GoldTodayCard data={priceData} historyData={historyData} />
+            <>
+              <GoldTodayCard data={priceData} historyData={historyData} />
+
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                {/* Left Column: Cards (Determines Height) */}
+                <div>
+                  <GoldRateCards data={priceData} />
+                </div>
+
+                {/* Right Column: Table (Constrained Height) */}
+                <div className="relative min-h-[400px] md:min-h-0">
+                  <div className="h-full md:absolute md:inset-0">
+                    <GoldTable data={historyData} />
+                  </div>
+                </div>
+              </div>
+            </>
           ) : (
             <div className="py-10 text-center text-gray-500">
               {t('error')}
@@ -47,17 +64,9 @@ export default async function Home({ searchParams }: HomeProps) {
           )}
         </Suspense>
 
-        <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-12 w-full">
-            <Suspense fallback={<div className="h-[300px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
-              <GoldHistoryChart data={historyData} />
-            </Suspense>
-          </div>
-        </div>
-
-        <div className="mt-8 w-[514px]">
-          <Suspense fallback={<div className="h-[400px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
-            <GoldTable data={historyData} />
+        <div className="mt-8 w-full">
+          <Suspense fallback={<div className="h-[300px] rounded-2xl bg-gray-100 animate-pulse"></div>}>
+            <GoldHistoryChart data={historyData} />
           </Suspense>
         </div>
       </div>
