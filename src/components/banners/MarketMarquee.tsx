@@ -60,6 +60,9 @@ export function MarketMarquee({ items }: MarketMarqueeProps) {
                         <div className={`flex items-center px-2 py-0.5 rounded-full text-xs font-bold text-white ${item.direction === 'up' ? 'bg-[#11550B] text-[#95FF8C]' :
                             item.direction === 'down' ? 'bg-[#550B0B] text-[#FF8C8C]' : 'bg-gray-600/20 text-gray-500'
                             }`}>
+                            <span className="mr-1">
+                                {item.direction === 'up' ? '▲' : item.direction === 'down' ? '▼' : ''}
+                            </span>
                             {Math.abs(item.change).toFixed(2)} ({item.percentChange.toFixed(1)}%)
                         </div>
                         <div className="ml-8 group-last:hidden">
