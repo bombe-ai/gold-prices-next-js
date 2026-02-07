@@ -143,14 +143,15 @@ export default async function BlogPost({
 
                 {/* Content */}
                 <article className="prose prose-slate max-w-[980px] mx-auto 
-          [&_p]:text-[18px] [&_p]:leading-[28px] lg:[&_p]:text-[20px] lg:[&_p]:leading-[32px] [&_p]:text-gray-700 [&_p]:mb-6
-          [&_li]:text-[18px] [&_li]:leading-[28px] lg:[&_li]:text-[20px] lg:[&_li]:leading-[32px] [&_li]:text-gray-700
-          prose-headings:text-kerala-900 prose-headings:font-bold prose-headings:tracking-tight
+          font-serif
+          [&_p]:text-[18px] [&_p]:leading-[32px] lg:[&_p]:text-[21px] lg:[&_p]:leading-[36px] [&_p]:text-gray-800 [&_p]:mb-7
+          [&_li]:text-[18px] [&_li]:leading-[32px] lg:[&_li]:text-[21px] lg:[&_li]:leading-[36px] [&_li]:text-gray-800
+          prose-headings:text-kerala-900 prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight
           prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
           prose-a:text-gold-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
           prose-img:rounded-xl prose-img:shadow-md prose-img:my-8
           prose-strong:text-kerala-900 prose-strong:font-bold
-          first-letter:text-6xl first-letter:font-bold first-letter:text-kerala-900 first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8]
+          first-letter:text-6xl first-letter:font-bold first-letter:text-kerala-900 first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8] first-letter:font-serif
         ">
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 </article>
