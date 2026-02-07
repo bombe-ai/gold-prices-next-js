@@ -157,9 +157,9 @@ export function GoldTodayCard({ data, historyData = [] }: GoldTodayCardProps) {
                     {/* Timestamp */}
                     <div className="text-center mb-8 text-gray-400 text-xs flex items-center justify-center gap-1.5">
                         <CalendarDays className="h-3.5 w-3.5" />
-                        <span>{t('lastUpdated')} {new Date(data.date).toLocaleString('en-IN', {
+                        <span>{t('lastUpdated')} {new Date(data.date + 'T10:00:00').toLocaleString('en-IN', {
                             dateStyle: 'medium',
-                            timeStyle: 'short'
+                            timeStyle: 'short',
                         })}</span>
                     </div>
 
