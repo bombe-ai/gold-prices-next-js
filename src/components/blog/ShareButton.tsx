@@ -34,10 +34,11 @@ export function ShareButton({ title, excerpt }: ShareButtonProps) {
     return (
         <button
             onClick={handleShare}
-            className="flex items-center gap-2 text-gray-500 hover:text-kerala-700 transition-colors text-sm font-medium"
+            className="group flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white hover:border-kerala-200 hover:bg-kerala-50 text-gray-600 hover:text-kerala-700 transition-all duration-300 shadow-sm hover:shadow-md"
+            aria-label={t('share')}
         >
-            <Share2 className="h-4 w-4" />
-            {t('share')}
+            <Share2 className="h-4 w-4 transition-transform group-hover:scale-110" />
+            <span className="text-sm font-medium">{t('share')}</span>
         </button>
     );
 }
